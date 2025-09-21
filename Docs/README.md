@@ -1,0 +1,1 @@
+Helios Pulse Full — README (pełna wersja w ZIP).
