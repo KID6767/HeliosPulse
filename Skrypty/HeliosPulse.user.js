@@ -1,18 +1,21 @@
 // ==UserScript==
-// @name         Helios Pulse — Grepolis Presence & Stats (Aegis-inspired, GRCRT-ready)
+// @name         Helios Pulse — Presence & Stats
 // @namespace    https://legionisci-heliosa.local
-// @version      1.1.0
-// @description  Potwierdzanie obecności, status online, zbieranie statystyk (punkty/miasta) i wysyłka do Google Sheets. Integracja opcjonalna z GRCR Tools / GrepoFusion, stylistyka inspirowana Aegis.
-// @author       Alpakiz & Team
+// @version      1.0
+// @description  Potwierdzanie obecności + integracja Google Sheets (HeliosPulse)
 // @match        https://*.grepolis.com/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=grepolis.com
-// @grant        GM_addStyle
-// @grant        GM_setValue
-// @grant        GM_getValue
 // @grant        GM_xmlhttpRequest
 // @run-at       document-end
-// @connect      script.google.com
-// @connect      googleusercontent.com
 // ==/UserScript==
 
-(function(){/* code truncated for brevity in this view; full in ZIP */})();
+(function() {
+  const CONFIG = {"ALLIANCE": "Legioni\u015bci Heliosa", "WEBAPP_URL": "https://script.google.com/macros/s/AKfycbyUNnWniaGRrJgc69xQPb9VQZqeSUd8NzAbwQPWqJely7weWlr5jNQLNWpYtfXUH6RCYQ/exec", "TOKEN": "HeliosPulseToken"};
+  function markPresence() {
+    const url = CONFIG.WEBAPP_URL + "?token=" + CONFIG.TOKEN + "&nick=" + encodeURIComponent(window.Game?.player_name||"Unknown") + "&action=presence";
+    GM_xmlhttpRequest({
+      method: "GET", url: url,
+      onload: r => console.log("Presence sent:", r.responseText)
+    });
+  }
+  window.setTimeout(markPresence, 5000);
+})();
